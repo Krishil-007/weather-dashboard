@@ -27,8 +27,12 @@ export default function Home() {
 
       const data: WeatherData = await res.json();
       setWeather(data);
-    } catch (err: any) {
-      setError(err.message || "Failed to fetch weather");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Failed to fetch weather");
+      }
     } finally {
       setLoading(false);
     }
@@ -60,6 +64,5 @@ export default function Home() {
         </div>
       )}
     </main>
-
   );
 }

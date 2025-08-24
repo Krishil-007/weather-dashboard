@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { WeatherData } from "@/types/weather";
 
@@ -14,10 +15,18 @@ export default function WeatherCard({ weather }: WeatherCardProps) {
         <Card className="max-w-sm mx-auto mt-4 animate-fadeIn">
             <CardHeader>
                 <CardTitle>{weather.name}</CardTitle>
-                <CardDescription>{weather.weather[0].description}</CardDescription>
+                <CardDescription className="capitalize">
+                    {weather.weather[0].description}
+                </CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col items-center gap-2">
-                <img src={iconUrl} alt={weather.weather[0].description} />
+                <Image
+                    src={iconUrl}
+                    alt={weather.weather[0].description}
+                    width={100}
+                    height={100}
+                    priority
+                />
                 <p className="text-2xl font-bold">{weather.main.temp} °C</p>
                 <p>Humidity: {weather.main.humidity}%</p>
                 <p>Wind Speed: {weather.wind.speed} m/s</p>
